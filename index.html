@@ -13,8 +13,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     
+    <!-- React из CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-router-dom@6.14.0/dist/umd/react-router-dom.development.js"></script>
+    
     <style>
-        /* Основные стили */
+        /* Весь CSS стиль из предыдущей версии остается точно таким же */
+        /* ... полный CSS код ... */
+        
+        /* ОСНОВНЫЕ СТИЛИ */
         :root {
             --primary-color: #4CAF50;
             --primary-dark: #388E3C;
@@ -53,7 +62,7 @@
             padding: 0 20px;
         }
 
-        /* Шапка */
+        /* ШАПКА */
         .header {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
@@ -129,13 +138,13 @@
             font-weight: 500;
         }
 
-        /* Основной контент */
+        /* ОСНОВНОЙ КОНТЕНТ */
         .main {
             flex: 1;
             padding: 2rem 0;
         }
 
-        /* Кнопки */
+        /* КНОПКИ */
         .btn {
             padding: 10px 24px;
             border: none;
@@ -180,7 +189,7 @@
             color: white;
         }
 
-        /* Карточки */
+        /* КАРТОЧКИ */
         .card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -194,7 +203,7 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.15);
         }
 
-        /* Футер */
+        /* ФУТЕР */
         .footer {
             background: #333;
             color: white;
@@ -203,7 +212,7 @@
             margin-top: auto;
         }
 
-        /* Формы */
+        /* ФОРМЫ */
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -228,7 +237,7 @@
             border-color: var(--primary-color);
         }
 
-        /* Сетки */
+        /* СЕТКИ */
         .grid {
             display: grid;
             gap: 1.5rem;
@@ -246,7 +255,7 @@
             grid-template-columns: repeat(4, 1fr);
         }
 
-        /* Утилиты */
+        /* УТИЛИТЫ */
         .text-center { text-align: center; }
         .mt-1 { margin-top: 0.5rem; }
         .mt-2 { margin-top: 1rem; }
@@ -268,7 +277,7 @@
         .gap-3 { gap: 1.5rem; }
         .gap-4 { gap: 2rem; }
 
-        /* Exercise Card */
+        /* EXERCISE CARD */
         .exercise-card {
             display: flex;
             flex-direction: column;
@@ -359,7 +368,7 @@
             color: #666;
         }
 
-        /* Home Page */
+        /* HOME PAGE */
         .hero {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
@@ -488,7 +497,7 @@
             font-style: italic;
         }
 
-        /* Адаптивность */
+        /* АДАПТИВНОСТЬ */
         @media (max-width: 768px) {
             .nav {
                 display: none;
@@ -534,7 +543,7 @@
             }
         }
 
-        /* Loading */
+        /* LOADING */
         .app-loading {
             display: flex;
             justify-content: center;
@@ -594,7 +603,7 @@
             }
         }
 
-        /* Page Header */
+        /* PAGE HEADER */
         .page-header {
             display: flex;
             justify-content: space-between;
@@ -608,7 +617,7 @@
             color: var(--text-color);
         }
 
-        /* Workout Builder */
+        /* WORKOUT BUILDER */
         .workout-builder {
             padding: 1rem 0;
         }
@@ -684,7 +693,7 @@
             margin-top: 2rem;
         }
 
-        /* Profile */
+        /* PROFILE */
         .profile-page {
             padding: 1rem 0;
         }
@@ -857,13 +866,23 @@
         </div>
     </div>
 
-    <script type="module">
-        // Импорт React из CDN
-        import { createRoot } from 'https://esm.sh/react@18.2.0';
-        import { useState, useEffect } from 'https://esm.sh/react@18.2.0';
-        import { BrowserRouter as Router, Routes, Route, Link } from 'https://esm.sh/react-router-dom@6.14.0';
+    <script type="text/babel">
+        // Глобальные переменные
+        const { 
+            useState, 
+            useEffect, 
+            createElement: h 
+        } = React;
 
-        // Встроенные данные для упражнений
+        const {
+            BrowserRouter,
+            Routes,
+            Route,
+            Link,
+            useNavigate
+        } = ReactRouterDOM;
+
+        // Данные для упражнений
         const initialExercises = [
             {
                 id: '1',
@@ -1032,7 +1051,7 @@
             }
         ];
 
-        // Встроенные данные для тренировок
+        // Данные для тренировок
         const initialWorkouts = [
             {
                 id: '1',
@@ -1065,58 +1084,58 @@
 
         // Компонент домашней страницы
         function Home() {
-            return React.createElement('div', { className: 'home-page' },
-                React.createElement('div', { className: 'hero' },
-                    React.createElement('div', { className: 'hero-content' },
-                        React.createElement('h1', null, 'Добро пожаловать в FitGame!'),
-                        React.createElement('p', null, 'Ваше фитнес-приложение с элементами геймификации'),
-                        React.createElement('div', { className: 'hero-stats' },
-                            React.createElement('div', { className: 'stat-card' },
-                                React.createElement('i', { className: 'fas fa-fire' }),
-                                React.createElement('h3', null, initialWorkouts.length),
-                                React.createElement('p', null, 'Тренировок')
+            return h('div', { className: 'home-page' },
+                h('div', { className: 'hero' },
+                    h('div', { className: 'hero-content' },
+                        h('h1', null, 'Добро пожаловать в FitGame!'),
+                        h('p', null, 'Ваше фитнес-приложение с элементами геймификации'),
+                        h('div', { className: 'hero-stats' },
+                            h('div', { className: 'stat-card' },
+                                h('i', { className: 'fas fa-fire' }),
+                                h('h3', null, initialWorkouts.length),
+                                h('p', null, 'Тренировок')
                             ),
-                            React.createElement('div', { className: 'stat-card' },
-                                React.createElement('i', { className: 'fas fa-dumbbell' }),
-                                React.createElement('h3', null, initialExercises.length),
-                                React.createElement('p', null, 'Упражнений')
+                            h('div', { className: 'stat-card' },
+                                h('i', { className: 'fas fa-dumbbell' }),
+                                h('h3', null, initialExercises.length),
+                                h('p', null, 'Упражнений')
                             ),
-                            React.createElement('div', { className: 'stat-card' },
-                                React.createElement('i', { className: 'fas fa-user' }),
-                                React.createElement('h3', null, '1'),
-                                React.createElement('p', null, 'Активный пользователь')
+                            h('div', { className: 'stat-card' },
+                                h('i', { className: 'fas fa-user' }),
+                                h('h3', null, '1'),
+                                h('p', null, 'Активный пользователь')
                             )
                         )
                     )
                 ),
 
-                React.createElement('div', { className: 'section' },
-                    React.createElement('h2', { className: 'section-title' }, 'Быстрый старт'),
-                    React.createElement('div', { className: 'quick-actions grid-2' },
-                        React.createElement(Link, { 
+                h('div', { className: 'section' },
+                    h('h2', { className: 'section-title' }, 'Быстрый старт'),
+                    h('div', { className: 'quick-actions grid-2' },
+                        h(Link, { 
                             to: "/exercises", 
                             className: "quick-action-card card" 
                         },
-                            React.createElement('i', { className: 'fas fa-list' }),
-                            React.createElement('h3', null, 'Каталог упражнений'),
-                            React.createElement('p', null, `Изучите ${initialExercises.length} упражнений`)
+                            h('i', { className: 'fas fa-list' }),
+                            h('h3', null, 'Каталог упражнений'),
+                            h('p', null, `Изучите ${initialExercises.length} упражнений`)
                         ),
-                        React.createElement(Link, { 
+                        h(Link, { 
                             to: "/workout-builder", 
                             className: "quick-action-card card" 
                         },
-                            React.createElement('i', { className: 'fas fa-plus-circle' }),
-                            React.createElement('h3', null, 'Конструктор тренировок'),
-                            React.createElement('p', null, 'Создайте свою первую тренировку')
+                            h('i', { className: 'fas fa-plus-circle' }),
+                            h('h3', null, 'Конструктор тренировок'),
+                            h('p', null, 'Создайте свою первую тренировку')
                         )
                     )
                 ),
 
-                React.createElement('div', { className: 'motivation-section' },
-                    React.createElement('div', { className: 'motivation-card card' },
-                        React.createElement('i', { className: 'fas fa-quote-left' }),
-                        React.createElement('p', null, 'Сила не в том, чтобы никогда не падать, а в том, чтобы подниматься каждый раз, когда падаешь.'),
-                        React.createElement('div', { className: 'motivation-author' }, '- Конфуций')
+                h('div', { className: 'motivation-section' },
+                    h('div', { className: 'motivation-card card' },
+                        h('i', { className: 'fas fa-quote-left' }),
+                        h('p', null, 'Сила не в том, чтобы никогда не падать, а в том, чтобы подниматься каждый раз, когда падаешь.'),
+                        h('div', { className: 'motivation-author' }, '- Конфуций')
                     )
                 )
             );
@@ -1144,17 +1163,17 @@
                 }
             };
 
-            return React.createElement('div', { className: 'exercises-page' },
-                React.createElement('div', { className: 'page-header' },
-                    React.createElement('h1', null, 'Каталог упражнений')
+            return h('div', { className: 'exercises-page' },
+                h('div', { className: 'page-header' },
+                    h('h1', null, 'Каталог упражнений')
                 ),
 
-                React.createElement('div', { className: 'exercises-grid grid-3' },
+                h('div', { className: 'exercises-grid grid-3' },
                     exercises.map(exercise => 
-                        React.createElement('div', { key: exercise.id, className: 'exercise-card card' },
-                            React.createElement('div', { className: 'exercise-header' },
-                                React.createElement('h3', null, exercise.name),
-                                React.createElement('span', { 
+                        h('div', { key: exercise.id, className: 'exercise-card card' },
+                            h('div', { className: 'exercise-header' },
+                                h('h3', null, exercise.name),
+                                h('span', { 
                                     className: 'difficulty-badge',
                                     style: { 
                                         backgroundColor: getDifficultyColor(exercise.difficulty),
@@ -1166,20 +1185,20 @@
                                 }, getDifficultyText(exercise.difficulty))
                             ),
 
-                            React.createElement('p', { className: 'exercise-description' }, exercise.description),
+                            h('p', { className: 'exercise-description' }, exercise.description),
 
-                            React.createElement('div', { className: 'exercise-instructions' },
-                                React.createElement('h4', null, 'Инструкция:'),
-                                React.createElement('ol', null,
+                            h('div', { className: 'exercise-instructions' },
+                                h('h4', null, 'Инструкция:'),
+                                h('ol', null,
                                     exercise.instructions.slice(0, 3).map((instruction, idx) =>
-                                        React.createElement('li', { key: idx }, instruction)
+                                        h('li', { key: idx }, instruction)
                                     )
                                 )
                             ),
 
-                            React.createElement('div', { className: 'exercise-tags' },
+                            h('div', { className: 'exercise-tags' },
                                 exercise.tags.slice(0, 5).map(tag =>
-                                    React.createElement('span', { 
+                                    h('span', { 
                                         key: tag, 
                                         className: 'tag',
                                         style: {
@@ -1195,15 +1214,15 @@
                                 )
                             ),
 
-                            React.createElement('div', { className: 'exercise-meta' },
+                            h('div', { className: 'exercise-meta' },
                                 exercise.defaultReps && 
-                                    React.createElement('span', { className: 'meta-item' },
-                                        React.createElement('i', { className: 'fas fa-redo' }),
+                                    h('span', { className: 'meta-item' },
+                                        h('i', { className: 'fas fa-redo' }),
                                         ` ${exercise.defaultReps} повт.`
                                     ),
                                 exercise.defaultTime && 
-                                    React.createElement('span', { className: 'meta-item' },
-                                        React.createElement('i', { className: 'fas fa-clock' }),
+                                    h('span', { className: 'meta-item' },
+                                        h('i', { className: 'fas fa-clock' }),
                                         ` ${exercise.defaultTime} сек`
                                     )
                             )
@@ -1240,13 +1259,13 @@
                 setWorkoutName('Моя тренировка');
             };
 
-            return React.createElement('div', { className: 'workout-builder' },
-                React.createElement('h1', null, 'Конструктор тренировок'),
+            return h('div', { className: 'workout-builder' },
+                h('h1', null, 'Конструктор тренировок'),
 
-                React.createElement('div', { className: 'workout-form card' },
-                    React.createElement('div', { className: 'form-group' },
-                        React.createElement('label', { className: 'form-label' }, 'Название тренировки'),
-                        React.createElement('input', {
+                h('div', { className: 'workout-form card' },
+                    h('div', { className: 'form-group' },
+                        h('label', { className: 'form-label' }, 'Название тренировки'),
+                        h('input', {
                             type: 'text',
                             className: 'form-control',
                             value: workoutName,
@@ -1255,12 +1274,12 @@
                     )
                 ),
 
-                React.createElement('div', { className: 'builder-sections grid-2' },
-                    React.createElement('div', { className: 'available-exercises card' },
-                        React.createElement('h3', null, `Доступные упражнения (${initialExercises.length})`),
-                        React.createElement('div', { className: 'exercises-list' },
+                h('div', { className: 'builder-sections grid-2' },
+                    h('div', { className: 'available-exercises card' },
+                        h('h3', null, `Доступные упражнения (${initialExercises.length})`),
+                        h('div', { className: 'exercises-list' },
                             initialExercises.map(exercise =>
-                                React.createElement('div', {
+                                h('div', {
                                     key: exercise.id,
                                     className: 'exercise-item',
                                     onClick: () => handleAddExercise(exercise),
@@ -1275,15 +1294,15 @@
                                         marginBottom: '0.5rem'
                                     }
                                 },
-                                    React.createElement('div', { className: 'exercise-item-content' },
-                                        React.createElement('h4', null, exercise.name),
-                                        React.createElement('div', { className: 'exercise-tags' },
+                                    h('div', { className: 'exercise-item-content' },
+                                        h('h4', null, exercise.name),
+                                        h('div', { className: 'exercise-tags' },
                                             exercise.tags.slice(0, 2).map(tag =>
-                                                React.createElement('span', { key: tag, className: 'tag small' }, tag)
+                                                h('span', { key: tag, className: 'tag small' }, tag)
                                             )
                                         )
                                     ),
-                                    React.createElement('i', { 
+                                    h('i', { 
                                         className: 'fas fa-plus',
                                         style: {color: 'var(--primary-color)'}
                                     })
@@ -1292,33 +1311,33 @@
                         )
                     ),
 
-                    React.createElement('div', { className: 'selected-exercises card' },
-                        React.createElement('h3', null, `Выбранные упражнения (${selectedExercises.length})`),
+                    h('div', { className: 'selected-exercises card' },
+                        h('h3', null, `Выбранные упражнения (${selectedExercises.length})`),
                         selectedExercises.length === 0 ? 
-                            React.createElement('div', { className: 'empty-state' },
-                                React.createElement('i', { className: 'fas fa-clipboard-list' }),
-                                React.createElement('p', null, 'Выберите упражнения из списка слева')
+                            h('div', { className: 'empty-state' },
+                                h('i', { className: 'fas fa-clipboard-list' }),
+                                h('p', null, 'Выберите упражнения из списка слева')
                             ) :
-                            React.createElement('div', { className: 'selected-list' },
+                            h('div', { className: 'selected-list' },
                                 selectedExercises.map((exercise, index) =>
-                                    React.createElement('div', { 
+                                    h('div', { 
                                         key: index, 
                                         className: 'workout-exercise card',
                                         style: {marginBottom: '1rem'}
                                     },
-                                        React.createElement('div', { className: 'exercise-info' },
-                                            React.createElement('h4', null, exercise.name),
-                                            React.createElement('p', null, exercise.description),
+                                        h('div', { className: 'exercise-info' },
+                                            h('h4', null, exercise.name),
+                                            h('p', null, exercise.description),
                                             exercise.targetReps && 
-                                                React.createElement('p', null, `Цель: ${exercise.targetReps} повторений`),
+                                                h('p', null, `Цель: ${exercise.targetReps} повторений`),
                                             exercise.targetTime && 
-                                                React.createElement('p', null, `Цель: ${exercise.targetTime} секунд`)
+                                                h('p', null, `Цель: ${exercise.targetTime} секунд`)
                                         ),
-                                        React.createElement('button', {
+                                        h('button', {
                                             className: 'btn btn-danger',
                                             onClick: () => handleRemoveExercise(index)
                                         },
-                                            React.createElement('i', { className: 'fas fa-trash' }),
+                                            h('i', { className: 'fas fa-trash' }),
                                             ' Удалить'
                                         )
                                     )
@@ -1327,15 +1346,15 @@
                     )
                 ),
 
-                React.createElement('div', { 
+                h('div', { 
                     className: 'workout-actions',
                     style: {marginTop: '2rem', textAlign: 'center'}
                 },
-                    React.createElement('button', {
+                    h('button', {
                         className: 'btn btn-primary',
                         onClick: handleSaveWorkout
                     },
-                        React.createElement('i', { className: 'fas fa-save' }),
+                        h('i', { className: 'fas fa-save' }),
                         ' Сохранить тренировку'
                     )
                 )
@@ -1357,7 +1376,7 @@
                 };
             });
 
-            const [userData, setUserData] = useState({
+            const [userData] = useState({
                 name: 'Вася',
                 height: 175,
                 weight: 75,
@@ -1376,87 +1395,85 @@
                 localStorage.setItem('fitgame_character', JSON.stringify(character));
             }, [character]);
 
-            return React.createElement('div', { className: 'profile-page' },
-                React.createElement('div', { className: 'profile-header card' },
-                    React.createElement('div', { className: 'profile-info' },
-                        React.createElement('h1', null, userData.name),
-                        React.createElement('div', { className: 'level-info' },
-                            React.createElement('div', { className: 'level-display' },
-                                React.createElement('span', { className: 'level-badge' }, `Уровень ${character.level}`),
-                                React.createElement('div', { className: 'xp-bar' },
-                                    React.createElement('div', { 
+            return h('div', { className: 'profile-page' },
+                h('div', { className: 'profile-header card' },
+                    h('div', { className: 'profile-info' },
+                        h('h1', null, userData.name),
+                        h('div', { className: 'level-info' },
+                            h('div', { className: 'level-display' },
+                                h('span', { className: 'level-badge' }, `Уровень ${character.level}`),
+                                h('div', { className: 'xp-bar' },
+                                    h('div', { 
                                         className: 'xp-fill',
                                         style: { width: `${(character.xp % 1000) / 10}%` }
                                     })
                                 ),
-                                React.createElement('span', { className: 'xp-text' }, `${character.xp % 1000}/1000 XP`)
+                                h('span', { className: 'xp-text' }, `${character.xp % 1000}/1000 XP`)
                             ),
-                            React.createElement('div', { className: 'coins-display' },
-                                React.createElement('i', { className: 'fas fa-coins' }),
-                                React.createElement('span', null, `${character.coins} монет`)
+                            h('div', { className: 'coins-display' },
+                                h('i', { className: 'fas fa-coins' }),
+                                h('span', null, `${character.coins} монет`)
                             )
                         )
                     )
                 ),
 
-                React.createElement('div', { className: 'profile-content grid-2' },
-                    React.createElement('div', { className: 'profile-section card' },
-                        React.createElement('h3', null, 'Личная информация'),
-                        React.createElement('div', { className: 'profile-details' },
-                            React.createElement('div', { className: 'detail-item' },
-                                React.createElement('span', { className: 'detail-label' }, 'Возраст:'),
-                                React.createElement('span', { className: 'detail-value' }, `${userData.age} лет`)
+                h('div', { className: 'profile-content grid-2' },
+                    h('div', { className: 'profile-section card' },
+                        h('h3', null, 'Личная информация'),
+                        h('div', { className: 'profile-details' },
+                            h('div', { className: 'detail-item' },
+                                h('span', { className: 'detail-label' }, 'Возраст:'),
+                                h('span', { className: 'detail-value' }, `${userData.age} лет`)
                             ),
-                            React.createElement('div', { className: 'detail-item' },
-                                React.createElement('span', { className: 'detail-label' }, 'Рост:'),
-                                React.createElement('span', { className: 'detail-value' }, `${userData.height} см`)
+                            h('div', { className: 'detail-item' },
+                                h('span', { className: 'detail-label' }, 'Рост:'),
+                                h('span', { className: 'detail-value' }, `${userData.height} см`)
                             ),
-                            React.createElement('div', { className: 'detail-item' },
-                                React.createElement('span', { className: 'detail-label' }, 'Вес:'),
-                                React.createElement('span', { className: 'detail-value' }, `${userData.weight} кг`)
+                            h('div', { className: 'detail-item' },
+                                h('span', { className: 'detail-label' }, 'Вес:'),
+                                h('span', { className: 'detail-value' }, `${userData.weight} кг`)
                             ),
-                            React.createElement('div', { className: 'detail-item' },
-                                React.createElement('span', { className: 'detail-label' }, 'Уровень подготовки:'),
-                                React.createElement('span', { className: 'detail-value' },
-                                    userData.fitnessLevel === 'beginner' && 'Начинающий',
-                                    userData.fitnessLevel === 'intermediate' && 'Средний',
-                                    userData.fitnessLevel === 'advanced' && 'Продвинутый'
+                            h('div', { className: 'detail-item' },
+                                h('span', { className: 'detail-label' }, 'Уровень подготовки:'),
+                                h('span', { className: 'detail-value' },
+                                    userData.fitnessLevel === 'beginner' ? 'Начинающий' :
+                                    userData.fitnessLevel === 'intermediate' ? 'Средний' : 'Продвинутый'
                                 )
                             ),
-                            React.createElement('div', { className: 'detail-item' },
-                                React.createElement('span', { className: 'detail-label' }, 'Цель:'),
-                                React.createElement('span', { className: 'detail-value' },
-                                    userData.goal === 'weight_loss' && 'Похудение',
-                                    userData.goal === 'muscle_gain' && 'Набор мышечной массы',
-                                    userData.goal === 'strength' && 'Развитие силы',
-                                    userData.goal === 'endurance' && 'Выносливость'
+                            h('div', { className: 'detail-item' },
+                                h('span', { className: 'detail-label' }, 'Цель:'),
+                                h('span', { className: 'detail-value' },
+                                    userData.goal === 'weight_loss' ? 'Похудение' :
+                                    userData.goal === 'muscle_gain' ? 'Набор мышечной массы' :
+                                    userData.goal === 'strength' ? 'Развитие силы' : 'Выносливость'
                                 )
                             )
                         )
                     ),
 
-                    React.createElement('div', { className: 'achievements-section card' },
-                        React.createElement('h3', null, 'Достижения'),
-                        React.createElement('div', { className: 'achievements-list' },
+                    h('div', { className: 'achievements-section card' },
+                        h('h3', null, 'Достижения'),
+                        h('div', { className: 'achievements-list' },
                             achievements.map(achievement =>
-                                React.createElement('div', { 
+                                h('div', { 
                                     key: achievement.id, 
                                     className: `achievement-item ${achievement.unlocked ? 'unlocked' : 'locked'}`
                                 },
-                                    React.createElement('div', { className: 'achievement-icon' },
-                                        React.createElement('i', { className: achievement.icon })
+                                    h('div', { className: 'achievement-icon' },
+                                        h('i', { className: achievement.icon })
                                     ),
-                                    React.createElement('div', { className: 'achievement-info' },
-                                        React.createElement('h4', null, achievement.name),
-                                        React.createElement('p', null, achievement.description),
-                                        React.createElement('div', { className: 'achievement-status' },
+                                    h('div', { className: 'achievement-info' },
+                                        h('h4', null, achievement.name),
+                                        h('p', null, achievement.description),
+                                        h('div', { className: 'achievement-status' },
                                             achievement.unlocked ? 
-                                                React.createElement('span', { className: 'status-unlocked' },
-                                                    React.createElement('i', { className: 'fas fa-check' }),
+                                                h('span', { className: 'status-unlocked' },
+                                                    h('i', { className: 'fas fa-check' }),
                                                     ' Получено'
                                                 ) :
-                                                React.createElement('span', { className: 'status-locked' },
-                                                    React.createElement('i', { className: 'fas fa-lock' }),
+                                                h('span', { className: 'status-locked' },
+                                                    h('i', { className: 'fas fa-lock' }),
                                                     ' Заблокировано'
                                                 )
                                         )
@@ -1484,66 +1501,76 @@
                 };
             });
 
-            return React.createElement(Router, null,
-                React.createElement('div', { className: 'app' },
-                    React.createElement('header', { className: 'header' },
-                        React.createElement('div', { className: 'container' },
-                            React.createElement(Link, { to: "/", className: "logo" },
-                                React.createElement('i', { className: 'fas fa-dumbbell' }),
-                                React.createElement('span', null, 'FitGame')
+            return h(BrowserRouter, null,
+                h('div', { className: 'app' },
+                    h('header', { className: 'header' },
+                        h('div', { className: 'container' },
+                            h(Link, { to: "/", className: "logo" },
+                                h('i', { className: 'fas fa-dumbbell' }),
+                                h('span', null, 'FitGame')
                             ),
-                            React.createElement('nav', { className: 'nav' },
-                                React.createElement(Link, { to: "/", className: "nav-link" },
-                                    React.createElement('i', { className: 'fas fa-home' }),
+                            h('nav', { className: 'nav' },
+                                h(Link, { to: "/", className: "nav-link" },
+                                    h('i', { className: 'fas fa-home' }),
                                     ' Главная'
                                 ),
-                                React.createElement(Link, { to: "/exercises", className: "nav-link" },
-                                    React.createElement('i', { className: 'fas fa-list' }),
+                                h(Link, { to: "/exercises", className: "nav-link" },
+                                    h('i', { className: 'fas fa-list' }),
                                     ' Упражнения'
                                 ),
-                                React.createElement(Link, { to: "/workout-builder", className: "nav-link" },
-                                    React.createElement('i', { className: 'fas fa-plus-circle' }),
+                                h(Link, { to: "/workout-builder", className: "nav-link" },
+                                    h('i', { className: 'fas fa-plus-circle' }),
                                     ' Конструктор'
                                 ),
-                                React.createElement(Link, { to: "/profile", className: "nav-link" },
-                                    React.createElement('i', { className: 'fas fa-user' }),
+                                h(Link, { to: "/profile", className: "nav-link" },
+                                    h('i', { className: 'fas fa-user' }),
                                     ' Профиль'
                                 )
                             ),
-                            React.createElement('div', { className: 'user-info' },
-                                React.createElement('span', { className: 'level' }, `Уровень ${character.level}`),
-                                React.createElement('span', { className: 'coins' },
-                                    React.createElement('i', { className: 'fas fa-coins' }),
+                            h('div', { className: 'user-info' },
+                                h('span', { className: 'level' }, `Уровень ${character.level}`),
+                                h('span', { className: 'coins' },
+                                    h('i', { className: 'fas fa-coins' }),
                                     ` ${character.coins}`
                                 )
                             )
                         )
                     ),
 
-                    React.createElement('main', { className: 'main' },
-                        React.createElement('div', { className: 'container' },
-                            React.createElement(Routes, null,
-                                React.createElement(Route, { path: "/", element: React.createElement(Home) }),
-                                React.createElement(Route, { path: "/exercises", element: React.createElement(Exercises) }),
-                                React.createElement(Route, { path: "/workout-builder", element: React.createElement(WorkoutBuilder) }),
-                                React.createElement(Route, { path: "/profile", element: React.createElement(Profile) })
+                    h('main', { className: 'main' },
+                        h('div', { className: 'container' },
+                            h(Routes, null,
+                                h(Route, { path: "/", element: h(Home) }),
+                                h(Route, { path: "/exercises", element: h(Exercises) }),
+                                h(Route, { path: "/workout-builder", element: h(WorkoutBuilder) }),
+                                h(Route, { path: "/profile", element: h(Profile) })
                             )
                         )
                     ),
 
-                    React.createElement('footer', { className: 'footer' },
-                        React.createElement('div', { className: 'container' },
-                            React.createElement('p', null, '© 2024 FitGame - Фитнес приложение с элементами геймификации'),
-                            React.createElement('p', null, 'Создано для олимпиады по программированию')
+                    h('footer', { className: 'footer' },
+                        h('div', { className: 'container' },
+                            h('p', null, '© 2024 FitGame - Фитнес приложение с элементами геймификации'),
+                            h('p', null, 'Создано для олимпиады по программированию')
                         )
                     )
                 )
             );
         }
 
-        // Рендерим приложение
-        const root = createRoot(document.getElementById('root'));
-        root.render(React.createElement(App));
+        // Рендерим приложение после загрузки
+        document.addEventListener('DOMContentLoaded', function() {
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(h(App));
+            
+            // Скрываем прелоадер
+            setTimeout(() => {
+                const loader = document.querySelector('.app-loading');
+                if (loader) {
+                    loader.style.display = 'none';
+                }
+            }, 1000);
+        });
     </script>
 </body>
 </html>
