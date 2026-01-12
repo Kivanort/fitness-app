@@ -20,9 +20,6 @@
     <script crossorigin src="https://unpkg.com/react-router-dom@6.14.0/dist/umd/react-router-dom.development.js"></script>
     
     <style>
-        /* Весь CSS стиль из предыдущей версии остается точно таким же */
-        /* ... полный CSS код ... */
-        
         /* ОСНОВНЫЕ СТИЛИ */
         :root {
             --primary-color: #4CAF50;
@@ -48,6 +45,7 @@
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
+            min-height: 100vh;
         }
 
         #root {
@@ -196,6 +194,7 @@
             padding: 1.5rem;
             box-shadow: var(--shadow);
             transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 1rem;
         }
 
         .card:hover {
@@ -344,9 +343,8 @@
             padding: 4px 10px;
             border-radius: 15px;
             font-size: 0.8rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+            display: inline-block;
+            margin: 2px;
         }
 
         .tag.small {
@@ -369,6 +367,10 @@
         }
 
         /* HOME PAGE */
+        .home-page {
+            width: 100%;
+        }
+
         .hero {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
@@ -441,6 +443,7 @@
             color: inherit;
             transition: all 0.3s;
             border: 2px solid transparent;
+            padding: 2rem;
         }
 
         .quick-action-card:hover {
@@ -520,6 +523,10 @@
             .stat-card {
                 min-width: 120px;
                 padding: 1rem;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -620,6 +627,7 @@
         /* WORKOUT BUILDER */
         .workout-builder {
             padding: 1rem 0;
+            width: 100%;
         }
 
         .workout-form {
@@ -634,7 +642,7 @@
 
         .available-exercises,
         .selected-exercises {
-            height: 600px;
+            height: 400px;
             overflow-y: auto;
         }
 
@@ -696,6 +704,7 @@
         /* PROFILE */
         .profile-page {
             padding: 1rem 0;
+            width: 100%;
         }
 
         .profile-header {
@@ -851,6 +860,30 @@
         .status-locked {
             color: #666;
         }
+
+        /* EXERCISES PAGE */
+        .exercises-page {
+            width: 100%;
+        }
+
+        .exercises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -878,8 +911,7 @@
             BrowserRouter,
             Routes,
             Route,
-            Link,
-            useNavigate
+            Link
         } = ReactRouterDOM;
 
         // Данные для упражнений
@@ -1168,7 +1200,7 @@
                     h('h1', null, 'Каталог упражнений')
                 ),
 
-                h('div', { className: 'exercises-grid grid-3' },
+                h('div', { className: 'exercises-grid' },
                     exercises.map(exercise => 
                         h('div', { key: exercise.id, className: 'exercise-card card' },
                             h('div', { className: 'exercise-header' },
@@ -1200,16 +1232,7 @@
                                 exercise.tags.slice(0, 5).map(tag =>
                                     h('span', { 
                                         key: tag, 
-                                        className: 'tag',
-                                        style: {
-                                            background: '#f0f0f0',
-                                            color: '#555',
-                                            padding: '4px 10px',
-                                            borderRadius: '15px',
-                                            fontSize: '0.8rem',
-                                            display: 'inline-block',
-                                            margin: '2px'
-                                        }
+                                        className: 'tag'
                                     }, tag)
                                 )
                             ),
@@ -1282,17 +1305,7 @@
                                 h('div', {
                                     key: exercise.id,
                                     className: 'exercise-item',
-                                    onClick: () => handleAddExercise(exercise),
-                                    style: {
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                        padding: '0.75rem',
-                                        border: '1px solid var(--border-color)',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        marginBottom: '0.5rem'
-                                    }
+                                    onClick: () => handleAddExercise(exercise)
                                 },
                                     h('div', { className: 'exercise-item-content' },
                                         h('h4', null, exercise.name),
@@ -1322,8 +1335,8 @@
                                 selectedExercises.map((exercise, index) =>
                                     h('div', { 
                                         key: index, 
-                                        className: 'workout-exercise card',
-                                        style: {marginBottom: '1rem'}
+                                        className: 'card workout-exercise',
+                                        style: {marginBottom: '1rem', padding: '1rem'}
                                     },
                                         h('div', { className: 'exercise-info' },
                                             h('h4', null, exercise.name),
@@ -1335,7 +1348,8 @@
                                         ),
                                         h('button', {
                                             className: 'btn btn-danger',
-                                            onClick: () => handleRemoveExercise(index)
+                                            onClick: () => handleRemoveExercise(index),
+                                            style: {marginTop: '1rem'}
                                         },
                                             h('i', { className: 'fas fa-trash' }),
                                             ' Удалить'
@@ -1563,7 +1577,7 @@
             const root = ReactDOM.createRoot(document.getElementById('root'));
             root.render(h(App));
             
-            // Скрываем прелоадер
+            // Скрываем прелоадер через 1 секунду
             setTimeout(() => {
                 const loader = document.querySelector('.app-loading');
                 if (loader) {
