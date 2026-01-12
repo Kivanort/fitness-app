@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitGame - Фитнес Приложение с элементами геймификации</title>
-    <meta name="description" content="Фитнес приложение с элементами геймификации. Каталог упражнений, конструктор тренировок, персонаж и система достижений.">
+    <title>FitGame - Фитнес Приложение</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     
-    <!-- Встроенные стили (чтобы избежать 404 ошибок) -->
     <style>
         /* Основные стили */
         :root {
@@ -41,6 +39,12 @@
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
+        }
+
+        #root {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
@@ -125,6 +129,12 @@
             font-weight: 500;
         }
 
+        /* Основной контент */
+        .main {
+            flex: 1;
+            padding: 2rem 0;
+        }
+
         /* Кнопки */
         .btn {
             padding: 10px 24px;
@@ -184,7 +194,347 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.15);
         }
 
-        /* Стили для загрузки */
+        /* Футер */
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: auto;
+        }
+
+        /* Формы */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* Сетки */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* Утилиты */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        .p-1 { padding: 0.5rem; }
+        .p-2 { padding: 1rem; }
+        .p-3 { padding: 1.5rem; }
+        .p-4 { padding: 2rem; }
+        .d-flex { display: flex; }
+        .justify-between { justify-content: space-between; }
+        .align-center { align-items: center; }
+        .gap-1 { gap: 0.5rem; }
+        .gap-2 { gap: 1rem; }
+        .gap-3 { gap: 1.5rem; }
+        .gap-4 { gap: 2rem; }
+
+        /* Exercise Card */
+        .exercise-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .exercise-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .difficulty-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .exercise-description {
+            color: #666;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .exercise-instructions {
+            margin-bottom: 1rem;
+        }
+
+        .exercise-instructions h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .exercise-instructions ol {
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+
+        .exercise-instructions li {
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .exercise-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            color: #555;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tag.small {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+        }
+
+        .exercise-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Home Page */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .quick-actions {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .quick-action-card {
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .quick-action-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .quick-action-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .quick-action-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .quick-action-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .motivation-section {
+            margin-top: 3rem;
+        }
+
+        .motivation-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+        }
+
+        .motivation-card i.fa-quote-left {
+            font-size: 2rem;
+            opacity: 0.3;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+        }
+
+        .motivation-card p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin: 1rem 0;
+        }
+
+        .motivation-author {
+            font-size: 1rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .header .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-stats {
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                min-width: 120px;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading */
         .app-loading {
             display: flex;
             justify-content: center;
@@ -243,6 +593,255 @@
                 transform: translateY(0);
             }
         }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* Workout Builder */
+        .workout-builder {
+            padding: 1rem 0;
+        }
+
+        .workout-form {
+            margin-bottom: 2rem;
+        }
+
+        .builder-sections {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .available-exercises,
+        .selected-exercises {
+            height: 600px;
+            overflow-y: auto;
+        }
+
+        .available-exercises h3,
+        .selected-exercises h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .exercises-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .exercise-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .exercise-item:hover {
+            background: #f5f5f5;
+            border-color: var(--primary-color);
+        }
+
+        .exercise-item-content {
+            flex-grow: 1;
+        }
+
+        .exercise-item h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+        }
+
+        .exercise-item i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .selected-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .workout-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Profile */
+        .profile-page {
+            padding: 1rem 0;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-info h1 {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .level-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .level-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .level-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .xp-bar {
+            width: 200px;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+        }
+
+        .xp-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .coins-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: gold;
+            color: #333;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .coins-display i {
+            color: #ff9800;
+        }
+
+        .profile-content {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .profile-section h3,
+        .achievements-section h3 {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .profile-details {
+            max-width: 500px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .detail-value {
+            color: #333;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .achievement-item.unlocked {
+            border-color: var(--primary-color);
+            background: #f8f9fa;
+        }
+
+        .achievement-item.locked {
+            opacity: 0.7;
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .achievement-info {
+            flex: 1;
+        }
+
+        .achievement-info h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .achievement-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-status {
+            text-align: right;
+        }
+
+        .status-unlocked {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .status-locked {
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -257,7 +856,694 @@
             </div>
         </div>
     </div>
-    
-    <script type="module" src="/src/main.jsx"></script>
+
+    <script type="module">
+        // Импорт React из CDN
+        import { createRoot } from 'https://esm.sh/react@18.2.0';
+        import { useState, useEffect } from 'https://esm.sh/react@18.2.0';
+        import { BrowserRouter as Router, Routes, Route, Link } from 'https://esm.sh/react-router-dom@6.14.0';
+
+        // Встроенные данные для упражнений
+        const initialExercises = [
+            {
+                id: '1',
+                name: 'Приседания',
+                description: 'Базовое упражнение для развития мышц ног и ягодиц.',
+                instructions: [
+                    'Встаньте прямо, ноги на ширине плеч',
+                    'Начните опускаться, отводя таз назад',
+                    'Опускайтесь до параллели бедер с полом',
+                    'Вернитесь в исходное положение'
+                ],
+                difficulty: 'medium',
+                equipment: [],
+                tags: ['ноги', 'ягодицы', 'силовое', 'базовое'],
+                defaultReps: 15,
+                caloriesPerMinute: 8
+            },
+            {
+                id: '2',
+                name: 'Отжимания',
+                description: 'Эффективное упражнение для грудных мышц и трицепсов.',
+                instructions: [
+                    'Примите упор лежа, руки на ширине плеч',
+                    'Опустите тело, сгибая локти',
+                    'Коснитесь грудью пола',
+                    'Вернитесь в исходное положение'
+                ],
+                difficulty: 'medium',
+                equipment: [],
+                tags: ['грудь', 'руки', 'силовое', 'верх тела'],
+                defaultReps: 10,
+                caloriesPerMinute: 7
+            },
+            {
+                id: '3',
+                name: 'Планка',
+                description: 'Упражнение для укрепления мышц кора и всего тела.',
+                instructions: [
+                    'Примите положение упора на предплечьях',
+                    'Держите тело прямо, как струна',
+                    'Напрягите пресс и ягодицы',
+                    'Держите положение'
+                ],
+                difficulty: 'medium',
+                equipment: [],
+                tags: ['пресс', 'кор', 'статическое', 'все тело'],
+                defaultTime: 30,
+                caloriesPerMinute: 5
+            },
+            {
+                id: '4',
+                name: 'Выпады',
+                description: 'Упражнение для ног с акцентом на ягодицы.',
+                instructions: [
+                    'Встаньте прямо, ноги вместе',
+                    'Сделайте шаг вперед',
+                    'Опуститесь до касания коленом пола',
+                    'Вернитесь в исходное положение'
+                ],
+                difficulty: 'medium',
+                equipment: [],
+                tags: ['ноги', 'ягодицы', 'баланс', 'силовое'],
+                defaultReps: 12,
+                caloriesPerMinute: 6
+            },
+            {
+                id: '5',
+                name: 'Берпи',
+                description: 'Кардио-упражнение для всего тела.',
+                instructions: [
+                    'Из положения стоя присядьте',
+                    'Поставьте руки на пол',
+                    'Отпрыгните ногами назад в планку',
+                    'Сделайте отжимание',
+                    'Верните ноги к рукам',
+                    'Выпрыгните вверх'
+                ],
+                difficulty: 'hard',
+                equipment: [],
+                tags: ['кардио', 'все тело', 'выносливость', 'продвинутое'],
+                defaultReps: 8,
+                caloriesPerMinute: 12
+            },
+            {
+                id: '6',
+                name: 'Подтягивания',
+                description: 'Упражнение для развития мышц спины и рук.',
+                instructions: [
+                    'Возьмитесь за перекладину прямым хватом',
+                    'Повисните на прямых руках',
+                    'Подтянитесь до касания подбородком перекладины',
+                    'Медленно опуститесь'
+                ],
+                difficulty: 'hard',
+                equipment: ['турник'],
+                tags: ['спина', 'руки', 'силовое', 'верх тела'],
+                defaultReps: 5,
+                caloriesPerMinute: 9
+            },
+            {
+                id: '7',
+                name: 'Скручивания',
+                description: 'Упражнение для пресса.',
+                instructions: [
+                    'Лягте на спину, согните ноги',
+                    'Руки за голову или скрестите на груди',
+                    'Поднимите верхнюю часть тела',
+                    'Напрягите пресс в верхней точке',
+                    'Медленно опуститесь'
+                ],
+                difficulty: 'easy',
+                equipment: ['коврик'],
+                tags: ['пресс', 'кор', 'легкое', 'изоляция'],
+                defaultReps: 20,
+                caloriesPerMinute: 4
+            },
+            {
+                id: '8',
+                name: 'Бег на месте',
+                description: 'Кардио-упражнение для разминки.',
+                instructions: [
+                    'Встаньте прямо',
+                    'Начните бежать на месте',
+                    'Поднимайте колени высоко',
+                    'Работайте руками'
+                ],
+                difficulty: 'easy',
+                equipment: [],
+                tags: ['кардио', 'разминка', 'легкое', 'ноги'],
+                defaultTime: 60,
+                caloriesPerMinute: 10
+            },
+            {
+                id: '9',
+                name: 'Махи гантелями',
+                description: 'Упражнение для плеч.',
+                instructions: [
+                    'Возьмите гантели, встаньте прямо',
+                    'Немного согните локти',
+                    'Поднимите гантели через стороны до уровня плеч',
+                    'Медленно опустите'
+                ],
+                difficulty: 'medium',
+                equipment: ['гантели'],
+                tags: ['плечи', 'руки', 'силовое', 'снаряд'],
+                defaultReps: 12,
+                defaultWeight: 5,
+                caloriesPerMinute: 6
+            },
+            {
+                id: '10',
+                name: 'Ягодичный мостик',
+                description: 'Упражнение для ягодиц и задней поверхности бедра.',
+                instructions: [
+                    'Лягте на спину, согните ноги',
+                    'Руки вдоль тела',
+                    'Поднимите таз максимально высоко',
+                    'Напрягите ягодицы в верхней точке',
+                    'Медленно опуститесь'
+                ],
+                difficulty: 'easy',
+                equipment: ['коврик'],
+                tags: ['ягодицы', 'ноги', 'легкое', 'изоляция'],
+                defaultReps: 15,
+                caloriesPerMinute: 5
+            }
+        ];
+
+        // Встроенные данные для тренировок
+        const initialWorkouts = [
+            {
+                id: '1',
+                name: 'Утренняя зарядка',
+                description: 'Короткая тренировка для пробуждения и заряда энергии на весь день.',
+                exercises: [
+                    { ...initialExercises[7], targetTime: 60 },
+                    { ...initialExercises[6], targetReps: 15 },
+                    { ...initialExercises[9], targetReps: 12 },
+                    { ...initialExercises[2], targetTime: 30 }
+                ],
+                restTime: 30,
+                createdAt: '2024-01-10T08:00:00Z'
+            },
+            {
+                id: '2',
+                name: 'Тренировка для начинающих',
+                description: 'Базовая тренировка для тех, кто только начинает заниматься.',
+                exercises: [
+                    { ...initialExercises[0], targetReps: 10 },
+                    { ...initialExercises[1], targetReps: 8 },
+                    { ...initialExercises[3], targetReps: 10 },
+                    { ...initialExercises[6], targetReps: 12 },
+                    { ...initialExercises[2], targetTime: 20 }
+                ],
+                restTime: 45,
+                createdAt: '2024-01-15T10:00:00Z'
+            }
+        ];
+
+        // Компонент домашней страницы
+        function Home() {
+            return React.createElement('div', { className: 'home-page' },
+                React.createElement('div', { className: 'hero' },
+                    React.createElement('div', { className: 'hero-content' },
+                        React.createElement('h1', null, 'Добро пожаловать в FitGame!'),
+                        React.createElement('p', null, 'Ваше фитнес-приложение с элементами геймификации'),
+                        React.createElement('div', { className: 'hero-stats' },
+                            React.createElement('div', { className: 'stat-card' },
+                                React.createElement('i', { className: 'fas fa-fire' }),
+                                React.createElement('h3', null, initialWorkouts.length),
+                                React.createElement('p', null, 'Тренировок')
+                            ),
+                            React.createElement('div', { className: 'stat-card' },
+                                React.createElement('i', { className: 'fas fa-dumbbell' }),
+                                React.createElement('h3', null, initialExercises.length),
+                                React.createElement('p', null, 'Упражнений')
+                            ),
+                            React.createElement('div', { className: 'stat-card' },
+                                React.createElement('i', { className: 'fas fa-user' }),
+                                React.createElement('h3', null, '1'),
+                                React.createElement('p', null, 'Активный пользователь')
+                            )
+                        )
+                    )
+                ),
+
+                React.createElement('div', { className: 'section' },
+                    React.createElement('h2', { className: 'section-title' }, 'Быстрый старт'),
+                    React.createElement('div', { className: 'quick-actions grid-2' },
+                        React.createElement(Link, { 
+                            to: "/exercises", 
+                            className: "quick-action-card card" 
+                        },
+                            React.createElement('i', { className: 'fas fa-list' }),
+                            React.createElement('h3', null, 'Каталог упражнений'),
+                            React.createElement('p', null, `Изучите ${initialExercises.length} упражнений`)
+                        ),
+                        React.createElement(Link, { 
+                            to: "/workout-builder", 
+                            className: "quick-action-card card" 
+                        },
+                            React.createElement('i', { className: 'fas fa-plus-circle' }),
+                            React.createElement('h3', null, 'Конструктор тренировок'),
+                            React.createElement('p', null, 'Создайте свою первую тренировку')
+                        )
+                    )
+                ),
+
+                React.createElement('div', { className: 'motivation-section' },
+                    React.createElement('div', { className: 'motivation-card card' },
+                        React.createElement('i', { className: 'fas fa-quote-left' }),
+                        React.createElement('p', null, 'Сила не в том, чтобы никогда не падать, а в том, чтобы подниматься каждый раз, когда падаешь.'),
+                        React.createElement('div', { className: 'motivation-author' }, '- Конфуций')
+                    )
+                )
+            );
+        }
+
+        // Компонент страницы упражнений
+        function Exercises() {
+            const [exercises] = useState(initialExercises);
+
+            const getDifficultyColor = (difficulty) => {
+                switch (difficulty) {
+                    case 'easy': return '#4CAF50';
+                    case 'medium': return '#FF9800';
+                    case 'hard': return '#F44336';
+                    default: return '#666';
+                }
+            };
+
+            const getDifficultyText = (difficulty) => {
+                switch (difficulty) {
+                    case 'easy': return 'Легкое';
+                    case 'medium': return 'Среднее';
+                    case 'hard': return 'Сложное';
+                    default: return difficulty;
+                }
+            };
+
+            return React.createElement('div', { className: 'exercises-page' },
+                React.createElement('div', { className: 'page-header' },
+                    React.createElement('h1', null, 'Каталог упражнений')
+                ),
+
+                React.createElement('div', { className: 'exercises-grid grid-3' },
+                    exercises.map(exercise => 
+                        React.createElement('div', { key: exercise.id, className: 'exercise-card card' },
+                            React.createElement('div', { className: 'exercise-header' },
+                                React.createElement('h3', null, exercise.name),
+                                React.createElement('span', { 
+                                    className: 'difficulty-badge',
+                                    style: { 
+                                        backgroundColor: getDifficultyColor(exercise.difficulty),
+                                        color: 'white',
+                                        padding: '4px 12px',
+                                        borderRadius: '20px',
+                                        fontSize: '0.8rem'
+                                    }
+                                }, getDifficultyText(exercise.difficulty))
+                            ),
+
+                            React.createElement('p', { className: 'exercise-description' }, exercise.description),
+
+                            React.createElement('div', { className: 'exercise-instructions' },
+                                React.createElement('h4', null, 'Инструкция:'),
+                                React.createElement('ol', null,
+                                    exercise.instructions.slice(0, 3).map((instruction, idx) =>
+                                        React.createElement('li', { key: idx }, instruction)
+                                    )
+                                )
+                            ),
+
+                            React.createElement('div', { className: 'exercise-tags' },
+                                exercise.tags.slice(0, 5).map(tag =>
+                                    React.createElement('span', { 
+                                        key: tag, 
+                                        className: 'tag',
+                                        style: {
+                                            background: '#f0f0f0',
+                                            color: '#555',
+                                            padding: '4px 10px',
+                                            borderRadius: '15px',
+                                            fontSize: '0.8rem',
+                                            display: 'inline-block',
+                                            margin: '2px'
+                                        }
+                                    }, tag)
+                                )
+                            ),
+
+                            React.createElement('div', { className: 'exercise-meta' },
+                                exercise.defaultReps && 
+                                    React.createElement('span', { className: 'meta-item' },
+                                        React.createElement('i', { className: 'fas fa-redo' }),
+                                        ` ${exercise.defaultReps} повт.`
+                                    ),
+                                exercise.defaultTime && 
+                                    React.createElement('span', { className: 'meta-item' },
+                                        React.createElement('i', { className: 'fas fa-clock' }),
+                                        ` ${exercise.defaultTime} сек`
+                                    )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+
+        // Компонент конструктора тренировок
+        function WorkoutBuilder() {
+            const [selectedExercises, setSelectedExercises] = useState([]);
+            const [workoutName, setWorkoutName] = useState('Моя тренировка');
+
+            const handleAddExercise = (exercise) => {
+                setSelectedExercises([...selectedExercises, {
+                    ...exercise,
+                    targetReps: exercise.defaultReps,
+                    targetTime: exercise.defaultTime
+                }]);
+            };
+
+            const handleRemoveExercise = (index) => {
+                setSelectedExercises(selectedExercises.filter((_, i) => i !== index));
+            };
+
+            const handleSaveWorkout = () => {
+                if (selectedExercises.length === 0) {
+                    alert('Добавьте хотя бы одно упражнение!');
+                    return;
+                }
+                alert(`Тренировка "${workoutName}" сохранена!`);
+                setSelectedExercises([]);
+                setWorkoutName('Моя тренировка');
+            };
+
+            return React.createElement('div', { className: 'workout-builder' },
+                React.createElement('h1', null, 'Конструктор тренировок'),
+
+                React.createElement('div', { className: 'workout-form card' },
+                    React.createElement('div', { className: 'form-group' },
+                        React.createElement('label', { className: 'form-label' }, 'Название тренировки'),
+                        React.createElement('input', {
+                            type: 'text',
+                            className: 'form-control',
+                            value: workoutName,
+                            onChange: (e) => setWorkoutName(e.target.value)
+                        })
+                    )
+                ),
+
+                React.createElement('div', { className: 'builder-sections grid-2' },
+                    React.createElement('div', { className: 'available-exercises card' },
+                        React.createElement('h3', null, `Доступные упражнения (${initialExercises.length})`),
+                        React.createElement('div', { className: 'exercises-list' },
+                            initialExercises.map(exercise =>
+                                React.createElement('div', {
+                                    key: exercise.id,
+                                    className: 'exercise-item',
+                                    onClick: () => handleAddExercise(exercise),
+                                    style: {
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        padding: '0.75rem',
+                                        border: '1px solid var(--border-color)',
+                                        borderRadius: '8px',
+                                        cursor: 'pointer',
+                                        marginBottom: '0.5rem'
+                                    }
+                                },
+                                    React.createElement('div', { className: 'exercise-item-content' },
+                                        React.createElement('h4', null, exercise.name),
+                                        React.createElement('div', { className: 'exercise-tags' },
+                                            exercise.tags.slice(0, 2).map(tag =>
+                                                React.createElement('span', { key: tag, className: 'tag small' }, tag)
+                                            )
+                                        )
+                                    ),
+                                    React.createElement('i', { 
+                                        className: 'fas fa-plus',
+                                        style: {color: 'var(--primary-color)'}
+                                    })
+                                )
+                            )
+                        )
+                    ),
+
+                    React.createElement('div', { className: 'selected-exercises card' },
+                        React.createElement('h3', null, `Выбранные упражнения (${selectedExercises.length})`),
+                        selectedExercises.length === 0 ? 
+                            React.createElement('div', { className: 'empty-state' },
+                                React.createElement('i', { className: 'fas fa-clipboard-list' }),
+                                React.createElement('p', null, 'Выберите упражнения из списка слева')
+                            ) :
+                            React.createElement('div', { className: 'selected-list' },
+                                selectedExercises.map((exercise, index) =>
+                                    React.createElement('div', { 
+                                        key: index, 
+                                        className: 'workout-exercise card',
+                                        style: {marginBottom: '1rem'}
+                                    },
+                                        React.createElement('div', { className: 'exercise-info' },
+                                            React.createElement('h4', null, exercise.name),
+                                            React.createElement('p', null, exercise.description),
+                                            exercise.targetReps && 
+                                                React.createElement('p', null, `Цель: ${exercise.targetReps} повторений`),
+                                            exercise.targetTime && 
+                                                React.createElement('p', null, `Цель: ${exercise.targetTime} секунд`)
+                                        ),
+                                        React.createElement('button', {
+                                            className: 'btn btn-danger',
+                                            onClick: () => handleRemoveExercise(index)
+                                        },
+                                            React.createElement('i', { className: 'fas fa-trash' }),
+                                            ' Удалить'
+                                        )
+                                    )
+                                )
+                            )
+                    )
+                ),
+
+                React.createElement('div', { 
+                    className: 'workout-actions',
+                    style: {marginTop: '2rem', textAlign: 'center'}
+                },
+                    React.createElement('button', {
+                        className: 'btn btn-primary',
+                        onClick: handleSaveWorkout
+                    },
+                        React.createElement('i', { className: 'fas fa-save' }),
+                        ' Сохранить тренировку'
+                    )
+                )
+            );
+        }
+
+        // Компонент профиля
+        function Profile() {
+            const [character, setCharacter] = useState(() => {
+                const saved = localStorage.getItem('fitgame_character');
+                return saved ? JSON.parse(saved) : {
+                    level: 1,
+                    xp: 0,
+                    coins: 100,
+                    bodyType: 'average',
+                    hairStyle: 'short',
+                    outfit: 'basic',
+                    achievements: []
+                };
+            });
+
+            const [userData, setUserData] = useState({
+                name: 'Вася',
+                height: 175,
+                weight: 75,
+                age: 25,
+                fitnessLevel: 'beginner',
+                goal: 'muscle_gain'
+            });
+
+            const achievements = [
+                { id: 1, name: 'Первая тренировка', description: 'Завершите свою первую тренировку', icon: 'fas fa-star', unlocked: true },
+                { id: 2, name: 'Спортсмен недели', description: 'Занимайтесь 5 дней подряд', icon: 'fas fa-trophy', unlocked: false },
+                { id: 3, name: 'Силач', description: 'Выполните 1000 повторений', icon: 'fas fa-dumbbell', unlocked: true }
+            ];
+
+            useEffect(() => {
+                localStorage.setItem('fitgame_character', JSON.stringify(character));
+            }, [character]);
+
+            return React.createElement('div', { className: 'profile-page' },
+                React.createElement('div', { className: 'profile-header card' },
+                    React.createElement('div', { className: 'profile-info' },
+                        React.createElement('h1', null, userData.name),
+                        React.createElement('div', { className: 'level-info' },
+                            React.createElement('div', { className: 'level-display' },
+                                React.createElement('span', { className: 'level-badge' }, `Уровень ${character.level}`),
+                                React.createElement('div', { className: 'xp-bar' },
+                                    React.createElement('div', { 
+                                        className: 'xp-fill',
+                                        style: { width: `${(character.xp % 1000) / 10}%` }
+                                    })
+                                ),
+                                React.createElement('span', { className: 'xp-text' }, `${character.xp % 1000}/1000 XP`)
+                            ),
+                            React.createElement('div', { className: 'coins-display' },
+                                React.createElement('i', { className: 'fas fa-coins' }),
+                                React.createElement('span', null, `${character.coins} монет`)
+                            )
+                        )
+                    )
+                ),
+
+                React.createElement('div', { className: 'profile-content grid-2' },
+                    React.createElement('div', { className: 'profile-section card' },
+                        React.createElement('h3', null, 'Личная информация'),
+                        React.createElement('div', { className: 'profile-details' },
+                            React.createElement('div', { className: 'detail-item' },
+                                React.createElement('span', { className: 'detail-label' }, 'Возраст:'),
+                                React.createElement('span', { className: 'detail-value' }, `${userData.age} лет`)
+                            ),
+                            React.createElement('div', { className: 'detail-item' },
+                                React.createElement('span', { className: 'detail-label' }, 'Рост:'),
+                                React.createElement('span', { className: 'detail-value' }, `${userData.height} см`)
+                            ),
+                            React.createElement('div', { className: 'detail-item' },
+                                React.createElement('span', { className: 'detail-label' }, 'Вес:'),
+                                React.createElement('span', { className: 'detail-value' }, `${userData.weight} кг`)
+                            ),
+                            React.createElement('div', { className: 'detail-item' },
+                                React.createElement('span', { className: 'detail-label' }, 'Уровень подготовки:'),
+                                React.createElement('span', { className: 'detail-value' },
+                                    userData.fitnessLevel === 'beginner' && 'Начинающий',
+                                    userData.fitnessLevel === 'intermediate' && 'Средний',
+                                    userData.fitnessLevel === 'advanced' && 'Продвинутый'
+                                )
+                            ),
+                            React.createElement('div', { className: 'detail-item' },
+                                React.createElement('span', { className: 'detail-label' }, 'Цель:'),
+                                React.createElement('span', { className: 'detail-value' },
+                                    userData.goal === 'weight_loss' && 'Похудение',
+                                    userData.goal === 'muscle_gain' && 'Набор мышечной массы',
+                                    userData.goal === 'strength' && 'Развитие силы',
+                                    userData.goal === 'endurance' && 'Выносливость'
+                                )
+                            )
+                        )
+                    ),
+
+                    React.createElement('div', { className: 'achievements-section card' },
+                        React.createElement('h3', null, 'Достижения'),
+                        React.createElement('div', { className: 'achievements-list' },
+                            achievements.map(achievement =>
+                                React.createElement('div', { 
+                                    key: achievement.id, 
+                                    className: `achievement-item ${achievement.unlocked ? 'unlocked' : 'locked'}`
+                                },
+                                    React.createElement('div', { className: 'achievement-icon' },
+                                        React.createElement('i', { className: achievement.icon })
+                                    ),
+                                    React.createElement('div', { className: 'achievement-info' },
+                                        React.createElement('h4', null, achievement.name),
+                                        React.createElement('p', null, achievement.description),
+                                        React.createElement('div', { className: 'achievement-status' },
+                                            achievement.unlocked ? 
+                                                React.createElement('span', { className: 'status-unlocked' },
+                                                    React.createElement('i', { className: 'fas fa-check' }),
+                                                    ' Получено'
+                                                ) :
+                                                React.createElement('span', { className: 'status-locked' },
+                                                    React.createElement('i', { className: 'fas fa-lock' }),
+                                                    ' Заблокировано'
+                                                )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+
+        // Главный компонент приложения
+        function App() {
+            const [character] = useState(() => {
+                const saved = localStorage.getItem('fitgame_character');
+                return saved ? JSON.parse(saved) : {
+                    level: 1,
+                    xp: 0,
+                    coins: 100,
+                    bodyType: 'average',
+                    hairStyle: 'short',
+                    outfit: 'basic',
+                    achievements: []
+                };
+            });
+
+            return React.createElement(Router, null,
+                React.createElement('div', { className: 'app' },
+                    React.createElement('header', { className: 'header' },
+                        React.createElement('div', { className: 'container' },
+                            React.createElement(Link, { to: "/", className: "logo" },
+                                React.createElement('i', { className: 'fas fa-dumbbell' }),
+                                React.createElement('span', null, 'FitGame')
+                            ),
+                            React.createElement('nav', { className: 'nav' },
+                                React.createElement(Link, { to: "/", className: "nav-link" },
+                                    React.createElement('i', { className: 'fas fa-home' }),
+                                    ' Главная'
+                                ),
+                                React.createElement(Link, { to: "/exercises", className: "nav-link" },
+                                    React.createElement('i', { className: 'fas fa-list' }),
+                                    ' Упражнения'
+                                ),
+                                React.createElement(Link, { to: "/workout-builder", className: "nav-link" },
+                                    React.createElement('i', { className: 'fas fa-plus-circle' }),
+                                    ' Конструктор'
+                                ),
+                                React.createElement(Link, { to: "/profile", className: "nav-link" },
+                                    React.createElement('i', { className: 'fas fa-user' }),
+                                    ' Профиль'
+                                )
+                            ),
+                            React.createElement('div', { className: 'user-info' },
+                                React.createElement('span', { className: 'level' }, `Уровень ${character.level}`),
+                                React.createElement('span', { className: 'coins' },
+                                    React.createElement('i', { className: 'fas fa-coins' }),
+                                    ` ${character.coins}`
+                                )
+                            )
+                        )
+                    ),
+
+                    React.createElement('main', { className: 'main' },
+                        React.createElement('div', { className: 'container' },
+                            React.createElement(Routes, null,
+                                React.createElement(Route, { path: "/", element: React.createElement(Home) }),
+                                React.createElement(Route, { path: "/exercises", element: React.createElement(Exercises) }),
+                                React.createElement(Route, { path: "/workout-builder", element: React.createElement(WorkoutBuilder) }),
+                                React.createElement(Route, { path: "/profile", element: React.createElement(Profile) })
+                            )
+                        )
+                    ),
+
+                    React.createElement('footer', { className: 'footer' },
+                        React.createElement('div', { className: 'container' },
+                            React.createElement('p', null, '© 2024 FitGame - Фитнес приложение с элементами геймификации'),
+                            React.createElement('p', null, 'Создано для олимпиады по программированию')
+                        )
+                    )
+                )
+            );
+        }
+
+        // Рендерим приложение
+        const root = createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+    </script>
 </body>
 </html>
