@@ -613,4 +613,51 @@ function App() {
           <div className="container">
             <Link to="/" className="logo">
               <i className="fas fa-dumbbell"></i>
-              <span
+              <span>FitGame</span>
+            </Link>
+            <nav className="nav">
+              <Link to="/" className="nav-link">
+                <i className="fas fa-home"></i> Главная
+              </Link>
+              <Link to="/exercises" className="nav-link">
+                <i className="fas fa-list"></i> Упражнения
+              </Link>
+              <Link to="/workout-builder" className="nav-link">
+                <i className="fas fa-plus-circle"></i> Конструктор
+              </Link>
+              <Link to="/profile" className="nav-link">
+                <i className="fas fa-user"></i> Профиль
+              </Link>
+            </nav>
+            <div className="user-info">
+              <span className="level">Уровень {character.level}</span>
+              <span className="coins">
+                <i className="fas fa-coins"></i> {character.coins}
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <main className="main">
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/exercises" element={<Exercises />} />
+              <Route path="/workout-builder" element={<WorkoutBuilder />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </div>
+        </main>
+
+        <footer className="footer">
+          <div className="container">
+            <p>© 2024 FitGame - Фитнес приложение с элементами геймификации</p>
+            <p>Создано для олимпиады по программированию</p>
+          </div>
+        </footer>
+      </div>
+    </Router>
+  )
+}
+
+export default App
